@@ -1,0 +1,157 @@
+[
+    {
+        "id": "d3493808b288f258",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "22dc03a89f72a82c",
+        "type": "cloudantplus",
+        "host": "https://f1c0dcf9-5075-4061-a1f8-2f4ca596058a-bluemix.cloudantnosqldb.appdomain.cloud",
+        "name": "Cred01",
+        "useapikey": true
+    },
+    {
+        "id": "5dbdc9ee314a73a1",
+        "type": "cloudantplus out",
+        "z": "d3493808b288f258",
+        "name": "",
+        "cloudant": "22dc03a89f72a82c",
+        "database": "gnascimentoremedios",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "e5a36d67af7e9b44"
+            ]
+        ]
+    },
+    {
+        "id": "92f272bf43bc7c4d",
+        "type": "http in",
+        "z": "d3493808b288f258",
+        "name": "",
+        "url": "/adicionarRemedio",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "5dbdc9ee314a73a1"
+            ]
+        ]
+    },
+    {
+        "id": "e5a36d67af7e9b44",
+        "type": "http response",
+        "z": "d3493808b288f258",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "2deaabdf9f00ff6e",
+        "type": "http response",
+        "z": "d3493808b288f258",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "707b318148346f88",
+        "type": "http in",
+        "z": "d3493808b288f258",
+        "name": "",
+        "url": "/consultarRemedio",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 260,
+        "wires": [
+            [
+                "826e3bae98b22e16"
+            ]
+        ]
+    },
+    {
+        "id": "826e3bae98b22e16",
+        "type": "cloudantplus in",
+        "z": "d3493808b288f258",
+        "name": "",
+        "cloudant": "22dc03a89f72a82c",
+        "database": "gnascimentoremedios",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 380,
+        "y": 260,
+        "wires": [
+            [
+                "2deaabdf9f00ff6e"
+            ]
+        ]
+    },
+    {
+        "id": "8e72211823dcf3b9",
+        "type": "http in",
+        "z": "d3493808b288f258",
+        "name": "",
+        "url": "/retirarRemedio",
+        "method": "delete",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "a5e3e8a79dd0478d"
+            ]
+        ]
+    },
+    {
+        "id": "a5e3e8a79dd0478d",
+        "type": "cloudantplus in",
+        "z": "d3493808b288f258",
+        "name": "",
+        "cloudant": "22dc03a89f72a82c",
+        "database": "gnascimentoremedios",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "61fcca562a14b16d"
+            ]
+        ]
+    },
+    {
+        "id": "61fcca562a14b16d",
+        "type": "http response",
+        "z": "d3493808b288f258",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 340,
+        "wires": []
+    }
+]
