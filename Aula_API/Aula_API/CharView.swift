@@ -1,87 +1,37 @@
-//
-//  sheetview.swift
-//  Aul06
-//
-//  Created by Turma02-11 on 03/06/25.
-//
-
 import SwiftUI
 
-struct sheetview: View {
-    let local: ContentView.Location
-        @Environment(\.dismiss) var dismiss
-
-        var body: some View {
-            ZStack{
-                Color.pickers
-                            .ignoresSafeArea()
-
-                VStack(spacing: 20) {
-                    
-                    ZStack{
-                        
-                        //
-                        if let url = URL(string: local.foto), !local.foto.isEmpty {
-                            AsyncImage(url: url) { phase in
-                                switch phase {
-                                case .success(let image):
-                                    Rectangle()
-                                        .strokeBorder(style: StrokeStyle(lineWidth: 4))
-
-                                        .overlay(
-                                            image
-                                                .resizable()
-                                                .scaledToFit()
-                                    )
-                                case .failure(_):
-                                    Text("Erro ao carregar imagem")
-                                case .empty:
-                                    ProgressView()
-                                @unknown default:
-                                    EmptyView()
-                                }
-                            }
-                        }
-                        //
+struct CharView: View {
+    let personagem: Personagem
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            if let imageUrlString = personagem.image,
+               let url = URL(string: imageUrlString) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                            .clipShape(Circle())
+                    default:
+                        ProgressView()
                     }
-                    
-
-                    
-                    Text(local.nome)
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(Color.brown)
-                        .multilineTextAlignment(.center)
-                    
-                    Text(local.descricao)
-                        .font(.body)
-                        .padding(.horizontal)
-                        .background(
-                            RoundedRectangle(cornerRadius: 3)
-                                .fill(Color.brown)
-                        )
-                    
-                    Spacer()
-                    
-                    Button("Fechar") {
-                        dismiss()
-                    }
-                    .padding(.bottom)
-                    
                 }
-                .padding()
-                //.presentationDetents([.medium, .large])
             }
+
+            Text(personagem.name ?? "Sem nome")
+                .font(.title)
+                .bold()
+            
+            Text("Casa: \(personagem.house ?? "Desconhecida")")
+            Text("Ancestralidade: \(personagem.ancestry ?? "Desconhecida")")
+            Text("Espécie: \(personagem.species ?? "Desconhecida")")
+            Text("Bruxo: \(personagem.wizard!)")
+
+            Spacer()
         }
+        .padding()
     }
-
-#Preview {
-    sheetview(local: ContentView.Location(
-        nome: "Cristo Redentor",
-        foto: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Christ_the_Redeemer_-_Cristo_Redentor.jpg",
-        descricao: "Rio de Janeiro",
-        latitude: -22.9520561,
-        longitude: -43.2105388
-    ))
 }
-

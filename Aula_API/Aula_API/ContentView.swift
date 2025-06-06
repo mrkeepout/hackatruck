@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = ViewModel()
+    @State private var personagemSelecionado: Personagem? = nil
     
     var body: some View {
         ZStack {
@@ -78,6 +79,13 @@ struct ContentView: View {
                                     Spacer()
                                 }
                                 .padding()
+                                .onTapGesture {
+                                    personagemSelecionado = personagem
+                                }
+                                .sheet(item: $personagemSelecionado){
+                                    personagem in
+                                    CharView(personagem: personagem)
+                                }
                             }
                         }
                         .padding(.top)
@@ -89,9 +97,9 @@ struct ContentView: View {
             }
             .padding()
         }
-        .sheet(item: $localSelecionadoSheet) { local in
+        /*.sheet(item: $localSelecionadoSheet) { local in
             sheetview(local: local)
-        }
+        }*/
         .onAppear {
             viewModel.fetch()
         }

@@ -13,4 +13,9 @@ struct Personagem: Codable, Identifiable {
     let surname :  String?
     let image:  String?
     let age :  String?
+    let house: String?
+    let ancestry: String?
+    let wizard: Bool?
+    let species: String?
+    
 }
